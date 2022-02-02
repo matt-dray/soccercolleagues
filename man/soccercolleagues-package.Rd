@@ -4,7 +4,7 @@
 \name{soccercolleagues-package}
 \alias{soccercolleagues}
 \alias{soccercolleagues-package}
-\title{soccercolleagues: Find Coincident Team Mates For Soccer Players}
+\title{soccercolleagues: Find Common Team Mates For Soccer Players}
 \description{
 Identify a football player's current and former team mates. Find common team-mates for a set of named footballers. Data fetched from <transfermarkt.com>.
 }

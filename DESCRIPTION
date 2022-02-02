@@ -1,5 +1,5 @@
 Package: soccercolleagues
-Title: Find Coincident Team Mates For Soccer Players
+Title: Find Common Team Mates For Soccer Players
 Version: 0.0.0.9000
 Authors@R:
     person("Matt", "Dray", , "mwdray@gmail.com", role = c("aut", "cre"))
@@ -16,3 +16,6 @@ Imports:
     purrr,
     stringr,
     worldfootballR
+Suggests:
+    shiny,
+    shinyjs

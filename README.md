@@ -10,10 +10,10 @@ has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 <!-- badges: end -->
 
-A work-in-progress, proof-of-concept R package to help you find the past
-and current team mates of a named footballer, or to find a team mate
-shared by multiple players at some point. Inspired by pub-quiz questions
-in this style.
+A work-in-progress, proof-of-concept R package to help you find:
+
+-   past and present team mates of a named footballer
+-   a single team mate shared by multiple players at some point
 
 This package is dependent on [the excellent {worldfootballR} package by
 Jason Zivkovic](https://jaseziv.github.io/worldfootballR/), which helps
@@ -22,14 +22,15 @@ fetch player data from [Transfermarkt](https://www.transfermarkt.com/).
 \[Insert gif of Kieran Dyer and Lee Bowyer fighting as Newcastle team
 mates\]
 
-Install from GitHub.
+You can install the package from GitHub.
 
 ``` r
 remotes::install_github("matt-dray/soccercolleagues")
 library(soccercolleagues)
 ```
 
-Fetch all players from all seasons of the English Premier League.
+Example: fetch all players from all seasons of the English Premier
+League.
 
 ``` r
 epl_players <- get_players(
@@ -50,23 +51,25 @@ sample_n(epl_players, 5) |>
     4 Julian Dicks     west-ham-united  1998 
     5 Steven Gerrard   fc-liverpool     2002 
 
-Sample from the team mates of a named player. Sampling is weighted by
-total playing time, so well-known players are more likely to arise.
+Sample from all the current and former team mates of a named player.
+Sampling is weighted by total playing time, so well-known players are
+more likely to arise.
 
 ``` r
-sample_co_colleagues(
+sample_colleagues(
   all_players = epl_players,
   player = "James Milner",
   n = 5
 )
 ```
 
-    [1] "Aaron Lennon" "Ian Harte" "Pablo Zabaleta" "Wayne Routledge" "Kyle Walker"  
+    [1] "Aaron Lennon" "Ian Harte" "Pablo Zabaleta" "Stiliyan Petrov" "Kyle Walker"  
 
-Find a common team mate for a set of named players.
+You can also find a common team mate for a set of named players, if they
+have one.
 
 ``` r
-sample_co_colleagues(
+sample_colleagues(
   all_players = epl_players,
   players = c(
     "Kevin Phillips",
@@ -80,3 +83,8 @@ sample_co_colleagues(
 ```
 
     [1] "James Milner"
+
+In the spirit of the ‘pub quiz’ nature of this, there’s also an
+*extremely* proof-of-concept Shiny app available with `open_quiz_app()`.
+You’ll need to install {shiny} and {shinyjs} from CRAN before you use
+it.
