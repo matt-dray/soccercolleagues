@@ -8,6 +8,7 @@
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![R-CMD-check](https://github.com/matt-dray/soccercolleagues/workflows/R-CMD-check/badge.svg)](https://github.com/matt-dray/soccercolleagues/actions)
 <!-- badges: end -->
 
 A work-in-progress, proof-of-concept R package to help you find:
@@ -85,6 +86,6 @@ sample_colleagues(
     [1] "James Milner"
 
 In the spirit of the ‘pub quiz’ nature of this, there’s also an
-*extremely* proof-of-concept Shiny app available with `open_quiz_app()`.
-You’ll need to install {shiny} and {shinyjs} from CRAN before you use
-it.
+*extremely* proof-of-concept Shiny app available with
+`open_colleagues_quiz()`. You’ll need to install {shiny} and {shinyjs}
+from CRAN before you use it.
