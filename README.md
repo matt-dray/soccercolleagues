@@ -15,6 +15,10 @@ and current team mates of a named footballer, or to find a team mate
 shared by multiple players at some point. Inspired by pub-quiz questions
 in this style.
 
+This package is dependent on [the excellent {worldfootballR} package by
+Jason Zivkovic](https://jaseziv.github.io/worldfootballR/), which helps
+fetch player data from [Transfermarkt](https://www.transfermarkt.com/).
+
 \[Insert gif of Kieran Dyer and Lee Bowyer fighting as Newcastle team
 mates\]
 
