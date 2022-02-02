@@ -1,0 +1,18 @@
+Package: soccercolleagues
+Title: Find Coincident Team Mates For Soccer Players
+Version: 0.0.0.9000
+Authors@R:
+    person("Matt", "Dray", , "mwdray@gmail.com", role = c("aut", "cre"))
+Description: Identify a football player's current and former team mates. Find
+    common team-mates for a set of named footballers. Data fetched from 
+    <transfermarkt.com>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: 
+    dplyr,
+    purrr,
+    stringr,
+    worldfootballR
