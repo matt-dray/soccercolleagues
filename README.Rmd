@@ -45,23 +45,49 @@ epl_players <- get_players(
   years = 1992:2020,
   country = "England"
 )
+
+sample_n(epl_players, 5) |> 
+  select(player_name, team, year)
+```
+```
+# A tibble: 5 × 3
+  player_name      team             year 
+  <chr>            <chr>            <chr>
+1 Magnus Hedman    coventry-city    1998 
+2 Christian Dailly west-ham-united  2000 
+3 Jason Roberts    blackburn-rovers 2011 
+4 Julian Dicks     west-ham-united  1998 
+5 Steven Gerrard   fc-liverpool     2002 
 ```
 
-Find all the team mates of a named player for these years.
+Sample from the team mates of a named player. Sampling is weighted by total playing time, so well-known players are more likely to arise.
 
 ```{r one-player}
-colleagues <- get_player_colleagues(
+sample_co_colleagues(
   all_players = epl_players,
-  player = "James Milner"
+  player = "James Milner",
+  n = 5
 )
+```
+```
+[1] "Aaron Lennon" "Ian Harte" "Pablo Zabaleta" "Wayne Routledge" "Kyle Walker"  
 ```
 
 Find a common team mate for a set of named players.
 
 ```{r multiple-players}
-sample_colleagues(
+sample_co_colleagues(
   all_players = epl_players,
-  players = colleagues
+  players = c(
+    "Kevin Phillips",
+    "Mark Viduka",
+    "Dejan Lovren",
+    "Danny Ings",
+    "Nicky Butt"
+  ),
+  n = 1
 )
 ```
-
+```
+[1] "James Milner"
+```

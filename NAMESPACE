@@ -3,4 +3,5 @@
 export(get_co_colleagues)
 export(get_player_colleagues)
 export(get_players)
-export(sample_colleagues)
+export(sample_co_colleagues)
+export(sample_player_colleagues)

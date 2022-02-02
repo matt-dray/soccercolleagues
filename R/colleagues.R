@@ -63,45 +63,42 @@ get_co_colleagues <- function(all_players, players) {
 
 }
 
-#' Sample From Colleagues
+#' Sample From A Single Player's Colleagues
 #'
 #' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
-#' @param players Character. Two or more player names (case sensitive).
-#' @param n Numeric. Number of team-mates' names to return. If \code{NULL}, then
-#'   a default values of \code{5} will be used if the length of 'players' is 1,
-#'   and a default value of  \code{1} will be used if the length of 'players' is
-#'   two or more.
+#' @param players Character. A single player name (case sensitive).
+#' @param n Numeric. Number of team-mates' names to return.
 #'
 #' @return Character vector.
 #' @export
 #'
-#' @examples \dontrun{sample_colleagues()}
-sample_colleagues <- function(all_players, players, n = NULL) {
+#' @examples \dontrun{sample_player_colleagues()}
+sample_player_colleagues <- function(all_players, player, n = 5) {
 
-  if (length(players) == 1) {
+  get_player_colleagues(all_players, player) |>
+    group_by(player_name) |>
+    summarise(minutes_played = sum(minutes_played, na.rm = TRUE)) |>
+    slice_sample(n = n, weight_by = minutes_played) |>   # TODO: sample from as many clubs as poss?
+    pull(player_name)
 
-    colleague_set <- get_player_colleagues(all_players, player)
+}
 
-    if (is.null(n)) {
-      n <- 5
-    }
+#' Sample From Multiple Players' Co-Colleagues
+#'
+#' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
+#' @param players Character. Two or more player names (case sensitive).
+#' @param n Numeric. Number of team-mates' names to return.
+#'
+#' @return Character vector.
+#' @export
+#'
+#' @examples \dontrun{sample_co_colleagues()}
+sample_co_colleagues <- function(all_players, players, n = 1) {
 
-  }
-
-  if (length(players) > 1) {
-
-    colleague_set <- get_co_colleagues(all_players, players)
-
-    if (is.null(n)) {
-      n <- 1
-    }
-
-  }
-
-  colleague_set |>
-    dplyr::group_by(player_name) |>
-    dplyr::summarise(minutes_played = sum(minutes_played, na.rm = TRUE)) |>
-    dplyr::slice_sample(n = n, weight_by = minutes_played) |>
-    dplyr::pull(player_name)
+  get_co_colleagues(all_players, players) |>
+    group_by(player_name) |>
+    summarise(minutes_played = sum(minutes_played, na.rm = TRUE)) |>
+    slice_sample(n = n, weight_by = minutes_played) |>
+    pull(player_name)
 
 }
