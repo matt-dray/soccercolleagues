@@ -5,6 +5,7 @@
 #' @param country Character. Country from which to fetch data.
 #'
 #' @return A data.frame/tibble.
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples \dontrun{get_players()}
@@ -37,9 +38,9 @@ get_players <- function(years = 1992:2021, country = "England") {
     )
   ) |>
     dplyr::mutate(
-      team = stringr::str_extract(team_url, "(?<=com/).*(?=/start)"),
-      year = stringr::str_extract(team_url, "(?<=id/)\\d{4}$"),
-      team_year = paste0(team, "_", year)
+      team = stringr::str_extract(.data$team_url, "(?<=com/).*(?=/start)"),
+      year = stringr::str_extract(.data$team_url, "(?<=id/)\\d{4}$"),
+      team_year = paste0(.data$team, "_", .data$year)
     ) |>
     dplyr::tibble()
 

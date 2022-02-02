@@ -3,6 +3,7 @@
 #' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
 #'
 #' @return Opens a Shiny app.
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples \dontrun{open_colleagues_quiz()}
@@ -24,18 +25,18 @@ open_colleagues_quiz <- function(all_players) {
   server <- function(input, output) {
 
     target_player <- all_players |>
-      dplyr::group_by(player_name) |>
-      dplyr::summarise(mins = sum(minutes_played)) |>
-      dplyr::sample_n(1, weight = mins) |>
-      dplyr::pull(player_name)
+      dplyr::group_by(.data$player_name) |>
+      dplyr::summarise(mins = sum(.data$minutes_played)) |>
+      dplyr::sample_n(1, weight = .data$mins) |>
+      dplyr::pull(.data$player_name)
 
     colleagues <- sample_colleagues(
       all_players = all_players,
-      player = target_player,
+      players = target_player,
       n = 5
     )
 
-    output$colleague_names <- renderText({
+    output$colleague_names <- shiny::renderText({
       paste(colleagues, collapse = ", ")
     })
 
