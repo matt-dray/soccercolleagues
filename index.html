@@ -76,45 +76,45 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"matt-dray/soccercolleagues"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">soccercolleagues</span><span class="op">)</span></code></pre></div>
-<p>Example: fetch all players from all seasons of the English Premier League.</p>
+<p>Example: fetch all players from all seasons of the English Premier League. This will take several minutes.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">epl_players</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_players.html">get_players</a></span><span class="op">(</span>
-  years <span class="op">=</span> <span class="fl">1992</span><span class="op">:</span><span class="fl">2020</span>,
+  seasons <span class="op">=</span> <span class="fl">1992</span><span class="op">:</span><span class="fl">2020</span>,
   country <span class="op">=</span> <span class="st">"England"</span>
 <span class="op">)</span>
 
 <span class="fu">sample_n</span><span class="op">(</span><span class="va">epl_players</span>, <span class="fl">5</span><span class="op">)</span> |&gt; 
-  <span class="fu">select</span><span class="op">(</span><span class="va">player_name</span>, <span class="va">team</span>, <span class="va">year</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># A tibble: 5 × 3</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  player_name      team             year </span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="dv">1</span> Magnus Hedman    coventry<span class="op">-</span>city    <span class="dv">1998</span> </span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="dv">2</span> Christian Dailly west<span class="op">-</span>ham<span class="op">-</span>united  <span class="dv">2000</span> </span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="dv">3</span> Jason Roberts    blackburn<span class="op">-</span>rovers <span class="dv">2011</span> </span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="dv">4</span> Julian Dicks     west<span class="op">-</span>ham<span class="op">-</span>united  <span class="dv">1998</span> </span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="dv">5</span> Steven Gerrard   fc<span class="op">-</span>liverpool     <span class="dv">2002</span> </span></code></pre></div>
+  <span class="fu">select</span><span class="op">(</span><span class="va">player_name</span>, <span class="va">team_name</span>, <span class="va">season</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## # A tibble: 5 × 3</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">##   player_name      team_name           season</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##   &lt;chr&gt;            &lt;chr&gt;               &lt;chr&gt; </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">## 1 Rob Lee          newcastle-united    1998  </span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">## 2 Gordon Durie     tottenham-hotspur   1992  </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">## 3 Cheikhou Kouyaté west-ham-united     2017  </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">## 4 Daniel James     swansea-city        2016  </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">## 5 Julian Watts     sheffield-wednesday 1995  </span></span></code></pre></div>
 <p>Sample from all the current and former team mates of a named player. Sampling is weighted by total playing time, so well-known players are more likely to arise.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/sample_colleagues.html">sample_colleagues</a></span><span class="op">(</span>
   all_players <span class="op">=</span> <span class="va">epl_players</span>,
-  player <span class="op">=</span> <span class="st">"James Milner"</span>,
+  players <span class="op">=</span> <span class="st">"Emile Heskey"</span>,
   n <span class="op">=</span> <span class="fl">5</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>[<span class="dv">1</span>] <span class="st">"Aaron Lennon"</span> <span class="st">"Ian Harte"</span> <span class="st">"Pablo Zabaleta"</span> <span class="st">"Stiliyan Petrov"</span> <span class="st">"Kyle Walker"</span>  </span></code></pre></div>
-<p>You can also find a common team mate for a set of named players, if they have one.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] "Shay Given"    "Dwight Yorke"    "El-Hadji Diouf"</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">## [4] "Matthew Upson" "Leighton Baines"</span></span></code></pre></div>
+<p>You can also sample common team mates for a set of named players, if they have any. This is especially sayisfying if they only have one player in common.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/sample_colleagues.html">sample_colleagues</a></span><span class="op">(</span>
   all_players <span class="op">=</span> <span class="va">epl_players</span>,
   players <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-    <span class="st">"Kevin Phillips"</span>,
-    <span class="st">"Mark Viduka"</span>,
-    <span class="st">"Dejan Lovren"</span>,
-    <span class="st">"Danny Ings"</span>,
-    <span class="st">"Nicky Butt"</span>
-  <span class="op">)</span>,
-  n <span class="op">=</span> <span class="fl">1</span>
+    <span class="st">"Shay Given"</span>,
+    <span class="st">"Dwight Yorke"</span>,
+    <span class="st">"El-Hadji Diouf"</span>,
+    <span class="st">"Matthew Upson"</span>,
+    <span class="st">"Leighton Baines"</span>
+  <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>[<span class="dv">1</span>] <span class="st">"James Milner"</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## [1] "Emile Heskey"</span></span></code></pre></div>
 <p>In the spirit of the ‘pub quiz’ nature of this, there’s also an <em>extremely</em> proof-of-concept Shiny app available with <code><a href="reference/open_colleagues_quiz.html">open_colleagues_quiz()</a></code>. You’ll need to install {shiny} and {shinyjs} from CRAN before you use it.</p>
 </div>
   </div>
