@@ -1,7 +1,10 @@
 
-#' Get A Single Player's Colleagues
-#' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
-#' @param player Character. A single player's name (case sensitive).
+#' Get A Single Player's Team Mates
+#' @param all_players Data.frame. Data fetched from
+#'   \href{https://www.transfermarkt.com/}{Transfermarkt} with
+#'   \code{\link{get_players}}.
+#' @param player Character. A single player's name for whom to return team
+#'     mates from \code{all_players} data.frame.
 #' @importFrom rlang .data
 #' @noRd
 .get_player_colleagues <- function(all_players, player) {
@@ -20,16 +23,36 @@
 
 }
 
-#' Get Player Colleagues
+#' Get Common Team Mates For Named Players
 #'
-#' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
-#' @param players Character. Two or more player names (case sensitive).
+#' @param all_players Data.frame. Data fetched from
+#'   \href{https://www.transfermarkt.com/}{Transfermarkt} with
+#'   \code{\link{get_players}}.
+#' @param players Character vector. One or more player names for whom to return
+#'     common team mates from the \code{all_players} data.frame. See details.
 #'
-#' @return Character vector.
+#' @details Pass one player name to the \code{players} argument to fetch all of
+#'   their team mates in the dataset. Pass multiple players to return common
+#'   team mates.
+#'
+#' @return A character vector of player names.
 #' @importFrom rlang .data
 #' @export
 #'
-#' @examples \dontrun{get_co_colleagues()}
+#' @examples
+#' \dontrun{
+#' # Fetch player data from Transfermarkt
+#' epl_players <- get_players(1992:2020, "England")
+#'
+#' # Return all team mate data for one named player
+#' get_colleagues(epl_players, "James Milner")
+#'
+#' # Return data for all team mates in common for named players
+#' get_colleagues(
+#'   epl_players,
+#'   c("Mark Viduka", "Kevin Phillips", "Nicky Butt")
+#' )
+#' }
 get_colleagues <- function(all_players, players) {
 
   colleague_list <- vector(mode = "list", length = length(players))
@@ -51,28 +74,66 @@ get_colleagues <- function(all_players, players) {
     unlist() |>
     table() |>
     as.data.frame() |>
-    dplyr::mutate(name = as.character(.data$Var1)) |>
+    dplyr::mutate(player_name = as.character(.data$Var1)) |>
     dplyr::filter(.data$Freq == length(players)) |>
-    dplyr::pull(.data$name)
+    dplyr::pull(.data$player_name)
 
   all_players |>
     dplyr::filter(.data$player_name %in% co_colleagues_names)
 
-
 }
 
-#' Sample From Team Mates
+#' Sample From Named Players' Common Team Mates
 #'
-#' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
-#' @param players Character. One or more player names (case sensitive).
-#' @param n Numeric. Number of team-mates' names to return.
+#' @param all_players Data.frame. Data fetched from
+#'   \href{https://www.transfermarkt.com/}{Transfermarkt} with
+#'   \code{\link{get_players}}.
+#' @param players Character vector. One or more player names for whom to return
+#'     common team mates from the \code{all_players} data.frame. See details.
+#' @param n Numeric. Number of team-mates' names to return. See details.
 #'
-#' @return Character vector.
+#' @details
+#' Pass one player name to the \code{players} argument to sample from all of
+#' their team mates in the dataset. Pass multiple players to sample from
+#' common team mates.
+#'
+#' The default number of player names returned, \code{n}, by will depend on the
+#' number of players supplied to the \code{players} argument: one input name
+#' will result in \code{n = 5}; multiple input names will result in
+#' \code{n = 1}.
+#'
+#' @return A character vector of player names.
 #' @importFrom rlang .data
 #' @export
 #'
-#' @examples \dontrun{sample_colleagues()}
-sample_colleagues <- function(all_players, players, n = 1) {
+#' @examples
+#' \dontrun{
+#' # Fetch player data from Transfermarkt
+#' epl_players <- get_players(1992:2020, "England")
+#'
+#' # Return several team mates for one named player
+#' sample_colleagues(epl_players, "James Milner", n = 5)
+#'
+#' # Return one team mate in common for named players
+#' sample_colleagues(
+#'   epl_players,
+#'   c("Mark Viduka", "Kevin Phillips", "Nicky Butt"),
+#'   n = 1
+#' )
+#' }
+sample_colleagues <- function(all_players, players, n = NULL) {
+
+  if (is.null(n)) {
+
+    if (length(players) == 1) {
+      n = 5
+    }
+
+    if (length(players) > 1) {
+      n = 1
+    }
+
+  }
 
   get_colleagues(all_players, players) |>
     dplyr::group_by(.data$player_name) |>

@@ -42,7 +42,7 @@ remotes::install_github("matt-dray/soccercolleagues")
 library(soccercolleagues)
 ```
 
-Example: fetch all players from all seasons of the English Premier League.
+Example: fetch all players from all seasons of the English Premier League. This will take several minutes.
 
 ```{r get-players}
 epl_players <- get_players(

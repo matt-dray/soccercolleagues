@@ -1,6 +1,6 @@
 Package: soccercolleagues
 Title: Find Common Team Mates For Soccer Players
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R:
     person("Matt", "Dray", , "mwdray@gmail.com", role = c("aut", "cre"))
 Description: Identify a football player's current and former team mates. Find

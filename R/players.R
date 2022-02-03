@@ -1,35 +1,34 @@
 
-#' Fetch A Dataframe From Transfermarkt
+#' Fetch Player Data From Transfermarkt
 #'
-#' @param years Numeric. Years for which to fetch data.
-#' @param country Character. Country from which to fetch data.
+#' @param seasons Numeric. One of more season starting-years for which to fetch
+#'   data from \href{https://www.transfermarkt.com/}{Transfermarkt}. Defaults to
+#'   seasons where the English Premier League has existed (since 1992).
+#' @param country Character. Country from which to fetch data from
+#'     \href{https://www.transfermarkt.com/}{Transfermarkt}. Defaults to
+#'     \code{"England"} for the English Premier League.
 #'
-#' @return A data.frame/tibble.
+#' @return A data.frame/tibble with a row per player/season and columns for
+#'     name, position, age, team, year, etc.
 #' @importFrom rlang .data
 #' @export
 #'
-#' @examples \dontrun{get_players()}
-get_players <- function(years = 1992:2021, country = "England") {
+#' @examples \dontrun{epl_players <- get_players(1992:2021, "England")}
+get_players <- function(seasons = 1992:2021, country = "England") {
 
   message("- Fetching team URLs")
 
   team_urls <- purrr::map(
-    years,
+    seasons,
     ~worldfootballR::tm_league_team_urls(
       country_name = country,
       start_year = as.character(.x)
     )
   )
 
-  team_names <- purrr::map(
-    team_urls,
-    ~stringr::str_extract(.x, "(?<=com/).*(?=/start)") |>
-      stringr::str_replace_all("-", "_")
-  )
+  message("- Fetching squad data (could take a few minutes)")
 
-  message("- Fetching squad data")
-
-  purrr::map_dfr(
+  players_df <- purrr::map_dfr(
     team_urls,
     ~purrr::map(
       .x,
@@ -38,9 +37,8 @@ get_players <- function(years = 1992:2021, country = "England") {
     )
   ) |>
     dplyr::mutate(
-      team = stringr::str_extract(.data$team_url, "(?<=com/).*(?=/start)"),
-      year = stringr::str_extract(.data$team_url, "(?<=id/)\\d{4}$"),
-      team_year = paste0(.data$team, "_", .data$year)
+      team_name = stringr::str_extract(.data$team_url, "(?<=com/).*(?=/startseite)"),
+      season = stringr::str_extract(.data$team_url, "(?<=id/)\\d{4}$")
     ) |>
     dplyr::tibble()
 

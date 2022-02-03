@@ -7,7 +7,9 @@
 open_colleagues_quiz(all_players)
 }
 \arguments{
-\item{all_players}{Data.frame. Data fetched with \code{\link{get_players}}.}
+\item{all_players}{Data.frame. Data fetched from
+\href{https://www.transfermarkt.com/}{Transfermarkt} with
+\code{\link{get_players}}.}
 }
 \value{
 Opens a Shiny app.
@@ -16,5 +18,11 @@ Opens a Shiny app.
 Open 'Guess The Player' Quiz App
 }
 \examples{
-\dontrun{open_colleagues_quiz()}
+\dontrun{
+# Fetch player data from Transfermarkt
+epl_players <- get_players(1992:2020, "England")
+
+# Open Shiny App
+open_colleagues_quiz(epl_players)
+}
 }

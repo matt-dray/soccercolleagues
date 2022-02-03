@@ -2,21 +2,41 @@
 % Please edit documentation in R/colleagues.R
 \name{get_colleagues}
 \alias{get_colleagues}
-\title{Get Player Colleagues}
+\title{Get Common Team Mates For Named Players}
 \usage{
 get_colleagues(all_players, players)
 }
 \arguments{
-\item{all_players}{Data.frame. Data fetched with \code{\link{get_players}}.}
+\item{all_players}{Data.frame. Data fetched from
+\href{https://www.transfermarkt.com/}{Transfermarkt} with
+\code{\link{get_players}}.}
 
-\item{players}{Character. Two or more player names (case sensitive).}
+\item{players}{Character vector. One or more player names for whom to return
+common team mates from the \code{all_players} data.frame. See details.}
 }
 \value{
-Character vector.
+A character vector of player names.
 }
 \description{
-Get Player Colleagues
+Get Common Team Mates For Named Players
+}
+\details{
+Pass one player name to the \code{players} argument to fetch all of
+their team mates in the dataset. Pass multiple players to return common
+team mates.
 }
 \examples{
-\dontrun{get_co_colleagues()}
+\dontrun{
+# Fetch player data from Transfermarkt
+epl_players <- get_players(1992:2020, "England")
+
+# Return all team mate data for one named player
+get_colleagues(epl_players, "James Milner")
+
+# Return data for all team mates in common for named players
+get_colleagues(
+  epl_players,
+  c("Mark Viduka", "Kevin Phillips", "Nicky Butt")
+)
+}
 }

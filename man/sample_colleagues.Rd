@@ -2,23 +2,49 @@
 % Please edit documentation in R/colleagues.R
 \name{sample_colleagues}
 \alias{sample_colleagues}
-\title{Sample From Team Mates}
+\title{Sample From Named Players' Common Team Mates}
 \usage{
-sample_colleagues(all_players, players, n = 1)
+sample_colleagues(all_players, players, n = NULL)
 }
 \arguments{
-\item{all_players}{Data.frame. Data fetched with \code{\link{get_players}}.}
+\item{all_players}{Data.frame. Data fetched from
+\href{https://www.transfermarkt.com/}{Transfermarkt} with
+\code{\link{get_players}}.}
 
-\item{players}{Character. One or more player names (case sensitive).}
+\item{players}{Character vector. One or more player names for whom to return
+common team mates from the \code{all_players} data.frame. See details.}
 
-\item{n}{Numeric. Number of team-mates' names to return.}
+\item{n}{Numeric. Number of team-mates' names to return. See details.}
 }
 \value{
-Character vector.
+A character vector of player names.
 }
 \description{
-Sample From Team Mates
+Sample From Named Players' Common Team Mates
+}
+\details{
+Pass one player name to the \code{players} argument to sample from all of
+their team mates in the dataset. Pass multiple players to sample from
+common team mates.
+
+The default number of player names returned, \code{n}, by will depend on the
+number of players supplied to the \code{players} argument: one input name
+will result in \code{n = 5}; multiple input names will result in
+\code{n = 1}.
 }
 \examples{
-\dontrun{sample_colleagues()}
+\dontrun{
+# Fetch player data from Transfermarkt
+epl_players <- get_players(1992:2020, "England")
+
+# Return several team mates for one named player
+sample_colleagues(epl_players, "James Milner", n = 5)
+
+# Return one team mate in common for named players
+sample_colleagues(
+  epl_players,
+  c("Mark Viduka", "Kevin Phillips", "Nicky Butt"),
+  n = 1
+)
+}
 }

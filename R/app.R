@@ -1,12 +1,20 @@
 #' Open 'Guess The Player' Quiz App
 #'
-#' @param all_players Data.frame. Data fetched with \code{\link{get_players}}.
+#' @param all_players Data.frame. Data fetched from
+#'   \href{https://www.transfermarkt.com/}{Transfermarkt} with
+#'   \code{\link{get_players}}.
 #'
 #' @return Opens a Shiny app.
 #' @importFrom rlang .data
 #' @export
 #'
-#' @examples \dontrun{open_colleagues_quiz()}
+#' @examples \dontrun{
+#' # Fetch player data from Transfermarkt
+#' epl_players <- get_players(1992:2020, "England")
+#'
+#' # Open Shiny App
+#' open_colleagues_quiz(epl_players)
+#' }
 open_colleagues_quiz <- function(all_players) {
 
   ui <- shiny::fluidPage(
