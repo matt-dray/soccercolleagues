@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">soccercolleagues</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9001</span>
       </span>
     </div>
 
@@ -53,7 +53,9 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>all_players</dt>
-<dd><p>Data.frame. Data fetched with <code><a href="get_players.html">get_players</a></code>.</p></dd>
+<dd><p>Data.frame. Data fetched from
+<a href="https://www.transfermarkt.com/" class="external-link">Transfermarkt</a> with
+<code><a href="get_players.html">get_players</a></code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -62,7 +64,13 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">open_colleagues_quiz</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="co"># Fetch player data from Transfermarkt</span></span>
+<span class="r-in"><span class="va">epl_players</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_players.html">get_players</a></span><span class="op">(</span><span class="fl">1992</span><span class="op">:</span><span class="fl">2020</span>, <span class="st">"England"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Open Shiny App</span></span>
+<span class="r-in"><span class="fu">open_colleagues_quiz</span><span class="op">(</span><span class="va">epl_players</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
