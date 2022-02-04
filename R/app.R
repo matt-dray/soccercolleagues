@@ -17,6 +17,10 @@
 #' }
 open_colleagues_quiz <- function(all_players) {
 
+  if (!inherits(all_players, "data.frame")) {
+    stop("Argument 'all_players' must be class data.frame.")
+  }
+
   ui <- shiny::fluidPage(
 
     shinyjs::useShinyjs(),

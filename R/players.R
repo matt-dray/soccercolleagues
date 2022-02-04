@@ -16,6 +16,18 @@
 #' @examples \dontrun{epl_players <- get_players(1992:2021, "England")}
 get_players <- function(seasons = 1992:2021, country = "England") {
 
+  if (!is.numeric(seasons)) {
+    stop("Argument 'seasons' must be class numeric.")
+  }
+
+  if (!inherits(country, "character")) {
+    stop("Argument 'country' must take a single character-class value.")
+  }
+
+  if (length(country) > 1) {
+    stop("Argument 'country' must take a single character-class value.")
+  }
+
   message("- Fetching team URLs")
 
   team_urls <- purrr::map(
