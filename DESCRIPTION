@@ -18,5 +18,8 @@ Imports:
     stringr,
     worldfootballR
 Suggests:
+    testthat (>= 3.0.0),
     shiny,
-    shinyjs
+    shinyjs,
+    covr
+Config/testthat/edition: 3

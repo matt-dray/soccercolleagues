@@ -55,6 +55,14 @@
 #' }
 get_colleagues <- function(all_players, players) {
 
+  if (!inherits(all_players, "data.frame")) {
+    stop("Argument 'all_players' must be class data.frame.")
+  }
+
+  if (!inherits(players, "character")) {
+    stop("Argument 'players' must be class character.")
+  }
+
   colleague_list <- vector(mode = "list", length = length(players))
 
   for (i in seq_along(players)) {
@@ -131,6 +139,18 @@ get_colleagues <- function(all_players, players) {
 #' )
 #' }
 sample_colleagues <- function(all_players, players, n = NULL) {
+
+  if (!inherits(all_players, "data.frame")) {
+    stop("Argument 'all_players' must be class data.frame.")
+  }
+
+  if (!inherits(players, "character")) {
+    stop("Argument 'players' must be class character.")
+  }
+
+  if (!(is.null(n) | is.numeric(n))) {
+    stop("Argument 'n' must be class numeric, or NULL.")
+  }
 
   if (is.null(n)) {
 
