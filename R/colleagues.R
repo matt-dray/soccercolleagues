@@ -33,9 +33,9 @@
 #'
 #' @details Pass one player name to the \code{players} argument to fetch all of
 #'   their team mates in the dataset. Pass multiple players to return common
-#'   team mates.
+#'   team mates and they seasons they played together.
 #'
-#' @return A character vector of player names.
+#' @return A data.frame with a row per player and season.
 #' @importFrom rlang .data
 #' @export
 #'
@@ -62,15 +62,20 @@ get_colleagues <- function(all_players, players) {
     colleague_names <-
       .get_player_colleagues(all_players, players[i]) |>
       dplyr::filter(.data$player_name != "") |>
-      dplyr::pull(.data$player_name) |>
-      unique()
+      dplyr::mutate(focus_name = players[i]) |>
+      dplyr::select(.data$focus_name, dplyr::everything())
 
     colleague_list[[i]] <- colleague_names
 
   }
 
+  colleague_list_unique <- purrr::map(
+    colleague_list,
+    ~.x |> dplyr::pull(.data$player_name) |> unique()
+  )
+
   co_colleagues_names <-
-    colleague_list |>
+    colleague_list_unique |>
     unlist() |>
     table() |>
     as.data.frame() |>
@@ -78,8 +83,12 @@ get_colleagues <- function(all_players, players) {
     dplyr::filter(.data$Freq == length(players)) |>
     dplyr::pull(.data$player_name)
 
-  all_players |>
-    dplyr::filter(.data$player_name %in% co_colleagues_names)
+  purrr::map(
+    colleague_list,
+    ~.x |> dplyr::filter(.data$player_name %in% co_colleagues_names)
+  ) |>
+    purrr::reduce(dplyr::bind_rows) |>
+    dplyr::arrange(.data$focus_name, .data$season, .data$team_name)
 
 }
 

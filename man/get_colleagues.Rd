@@ -15,7 +15,7 @@ get_colleagues(all_players, players)
 common team mates from the \code{all_players} data.frame. See details.}
 }
 \value{
-A character vector of player names.
+A data.frame with a row per player and season.
 }
 \description{
 Get Common Team Mates For Named Players
@@ -23,7 +23,7 @@ Get Common Team Mates For Named Players
 \details{
 Pass one player name to the \code{players} argument to fetch all of
 their team mates in the dataset. Pass multiple players to return common
-team mates.
+team mates and they seasons they played together.
 }
 \examples{
 \dontrun{

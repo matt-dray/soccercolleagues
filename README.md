@@ -52,24 +52,36 @@ sample_n(epl_players, 5) |>
     ## 4 Daniel James     swansea-city        2016  
     ## 5 Julian Watts     sheffield-wednesday 1995  
 
-Sample from all the current and former team mates of a named player.
-Sampling is weighted by total playing time, so well-known players are
-more likely to arise.
+From this, you can isolate all the team mates for a given player, or all
+the common team mates for several named players for the teams and season
+in which they played together.
 
 ``` r
-sample_colleagues(
-  all_players = epl_players,
-  players = "Emile Heskey",
-  n = 5
-)
+get_colleagues(
+  epl_players,
+  c("Gary Neville", "Phil Neville")
+) |>
+  glimpse()
 ```
 
-    ## [1] "Shay Given"    "Dwight Yorke"    "El-Hadji Diouf"
-    ## [4] "Matthew Upson" "Leighton Baines"
+    ## Rows: 880
+    ## Columns: 12
+    ## $ focus_name     <chr> "Gary Neville", "Gary Neville", "Gary Neville", "Gary Neville", …
+    ## $ player_name    <chr> "Kevin Pilkington", "Gary Walsh", "Peter Schmeichel", "Colin Mur…
+    ## $ player_pos     <chr> "Goalkeeper", "Goalkeeper", "Goalkeeper", "Centre-Back", "Right-…
+    ## $ player_age     <dbl> 18, 24, 28, 16, 28, 26, 31, 27, 18, 24, 18, 23, 17, 17, 17, 17, …
+    ## $ nationality    <chr> "England", "England", "Denmark", "Northern Ireland", "England", …
+    ## $ in_squad       <dbl> 1, 16, 46, 0, 36, 46, 47, 48, 0, 45, 45, 40, 3, 0, 1, 2, 30, 10,…
+    ## $ appearances    <dbl> 0, 1, 46, 0, 35, 45, 47, 47, 0, 45, 45, 30, 1, 0, 0, 1, 29, 7, 2…
+    ## $ goals          <dbl> 0, 0, 0, 0, 1, 5, 5, 1, 0, 6, 11, 3, 0, 0, 0, 0, 1, 1, 9, 9, 15,…
+    ## $ minutes_played <dbl> 0, 90, 4170, 0, 3102, 3932, 4229, 4260, 0, 3890, 3871, 1546, 25,…
+    ## $ team_url       <chr> "https://www.transfermarkt.com/manchester-united/startseite/vere…
+    ## $ team_name      <chr> "manchester-united", "manchester-united", "manchester-united", "…
+    ## $ season         <chr> "1992", "1992", "1992", "1992", "1992", "1992", "1992", "1992", …
 
-You can also sample common team mates for a set of named players, if
-they have any. This is especially sayisfying if they only have one
-player in common.
+Sample from all the current and former team mates of a named player or
+players. Sampling is weighted by total playing time, so well-known
+players are more likely to arise.
 
 ``` r
 sample_colleagues(
@@ -85,6 +97,8 @@ sample_colleagues(
 ```
 
     ## [1] "Emile Heskey"
+
+This is especially satisfying if they only have one player in common.
 
 In the spirit of the ‘pub quiz’ nature of this, there’s also an
 *extremely* proof-of-concept Shiny app available with
