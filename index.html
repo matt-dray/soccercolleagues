@@ -93,16 +93,28 @@
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">## 3 Cheikhou Kouyaté west-ham-united     2017  </span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">## 4 Daniel James     swansea-city        2016  </span></span>
 <span id="cb3-8"><a href="#cb3-8"></a><span class="co">## 5 Julian Watts     sheffield-wednesday 1995  </span></span></code></pre></div>
-<p>Sample from all the current and former team mates of a named player. Sampling is weighted by total playing time, so well-known players are more likely to arise.</p>
+<p>From this, you can isolate all the team mates for a given player, or all the common team mates for several named players for the teams and season in which they played together.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/sample_colleagues.html">sample_colleagues</a></span><span class="op">(</span>
-  all_players <span class="op">=</span> <span class="va">epl_players</span>,
-  players <span class="op">=</span> <span class="st">"Emile Heskey"</span>,
-  n <span class="op">=</span> <span class="fl">5</span>
-<span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] "Shay Given"    "Dwight Yorke"    "El-Hadji Diouf"</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">## [4] "Matthew Upson" "Leighton Baines"</span></span></code></pre></div>
-<p>You can also sample common team mates for a set of named players, if they have any. This is especially sayisfying if they only have one player in common.</p>
+<code class="sourceCode R"><span class="fu"><a href="reference/get_colleagues.html">get_colleagues</a></span><span class="op">(</span>
+  <span class="va">epl_players</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gary Neville"</span>, <span class="st">"Phil Neville"</span><span class="op">)</span>
+<span class="op">)</span> |&gt;
+  <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## Rows: 880</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">## Columns: 12</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">## $ focus_name     &lt;chr&gt; "Gary Neville", "Gary Neville", "Gary Neville", "Gary Neville", …</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">## $ player_name    &lt;chr&gt; "Kevin Pilkington", "Gary Walsh", "Peter Schmeichel", "Colin Mur…</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">## $ player_pos     &lt;chr&gt; "Goalkeeper", "Goalkeeper", "Goalkeeper", "Centre-Back", "Right-…</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">## $ player_age     &lt;dbl&gt; 18, 24, 28, 16, 28, 26, 31, 27, 18, 24, 18, 23, 17, 17, 17, 17, …</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">## $ nationality    &lt;chr&gt; "England", "England", "Denmark", "Northern Ireland", "England", …</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">## $ in_squad       &lt;dbl&gt; 1, 16, 46, 0, 36, 46, 47, 48, 0, 45, 45, 40, 3, 0, 1, 2, 30, 10,…</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">## $ appearances    &lt;dbl&gt; 0, 1, 46, 0, 35, 45, 47, 47, 0, 45, 45, 30, 1, 0, 0, 1, 29, 7, 2…</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">## $ goals          &lt;dbl&gt; 0, 0, 0, 0, 1, 5, 5, 1, 0, 6, 11, 3, 0, 0, 0, 0, 1, 1, 9, 9, 15,…</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">## $ minutes_played &lt;dbl&gt; 0, 90, 4170, 0, 3102, 3932, 4229, 4260, 0, 3890, 3871, 1546, 25,…</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">## $ team_url       &lt;chr&gt; "https://www.transfermarkt.com/manchester-united/startseite/vere…</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">## $ team_name      &lt;chr&gt; "manchester-united", "manchester-united", "manchester-united", "…</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">## $ season         &lt;chr&gt; "1992", "1992", "1992", "1992", "1992", "1992", "1992", "1992", …</span></span></code></pre></div>
+<p>Sample from all the current and former team mates of a named player or players. Sampling is weighted by total playing time, so well-known players are more likely to arise.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/sample_colleagues.html">sample_colleagues</a></span><span class="op">(</span>
   all_players <span class="op">=</span> <span class="va">epl_players</span>,
@@ -115,6 +127,7 @@
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## [1] "Emile Heskey"</span></span></code></pre></div>
+<p>This is especially satisfying if they only have one player in common.</p>
 <p>In the spirit of the ‘pub quiz’ nature of this, there’s also an <em>extremely</em> proof-of-concept Shiny app available with <code><a href="reference/open_colleagues_quiz.html">open_colleagues_quiz()</a></code>. You’ll need to install {shiny} and {shinyjs} from CRAN before you use it.</p>
 </div>
   </div>
