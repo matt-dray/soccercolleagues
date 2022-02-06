@@ -31,7 +31,8 @@ fetch player data from [Transfermarkt](https://www.transfermarkt.com/).
 \[Insert gif of Kieran Dyer and Lee Bowyer fighting as Newcastle team
 mates\]
 
-You can install the package from GitHub.
+You can install the package from GitHub. It uses the base R pipe (`|>`)
+internally, so you’ll need R &gt;=v4.1.
 
 ``` r
 remotes::install_github("matt-dray/soccercolleagues")

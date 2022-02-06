@@ -38,7 +38,7 @@ This package is dependent on [the excellent {worldfootballR} package by Jason Zi
 
 [Insert gif of Kieran Dyer and Lee Bowyer fighting as Newcastle team mates]
 
-You can install the package from GitHub.
+You can install the package from GitHub. It uses the base R pipe (`|>`) internally, so you'll need R >=v4.1.
 
 ```{r install, eval=FALSE}
 remotes::install_github("matt-dray/soccercolleagues")
